@@ -21,7 +21,7 @@ export default function Carousel({ products }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 5 }} // Adjust the duration as needed
+          transition={{ duration: 10 }} // Adjust the duration as needed
           style={{ width: '100%', height: 'auto', position: 'absolute' }}
         />
       </AnimatePresence>
