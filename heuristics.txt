@@ -1,0 +1,15 @@
+#M-Pesa Checkout
+1. if payment option selcted is M-Pesa
+2. show M-Pesa checkout button with input box for phonenumber.
+3. else payment is via cash.
+4. after user input phonenumber and submit.
+5. show an alert asking user to complete the payment on their phone.
+6. when response from M-Pesa comes showing user put completed the payment.
+7. change the order from not paid to pending confirmation.
+8. change order summary button to confirm payment.
+9. on the backend, listen to callback from M-Pesa.
+10. when user click confirm payment, check status of callback.
+11. if callback shows payment was successful, update order status from pending confirmation to paid.
+12. disable the confirm payment button on order summary card.
+13. if confirmation shows payment was unsuccessful, change order status to not paid.
+14. show m-pesa payment button with input box for phonenumber on order summary card.
