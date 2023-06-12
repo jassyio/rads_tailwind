@@ -40,7 +40,7 @@ export default function Layout({ title, children }) {
   return (
     <>
       <Head>
-        <title>{title ? title + '- MG' : 'MaliGhafi'}</title>
+        <title>{title ? title + '- MG' : 'RADSAPPAREL'}</title>
         <meta name="description" content="online spares shop" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -48,8 +48,8 @@ export default function Layout({ title, children }) {
       <div className="flex min-h-full flex-col justify-between">
         <header className=" bg-white sticky top-0 z-50">
           <nav className="flex h-12 justify-between items-center ">
-            <Link id="link" className="text-lg font-bold ml-4" href="/">
-              MaliGhafi
+            <Link id="link" className="text-xl font-bold ml-4" href="/">
+              Rad`s Apparel`
             </Link>
 
             <form
