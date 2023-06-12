@@ -141,7 +141,7 @@ export default function Layout({ title, children }) {
           {children}
         </main>
         <footer className="flex h-10 justify-center items-center shadow-inner">
-          <p className="text-sm">© 2023 MaliGhafi</p>
+          <p className="text-sm">© 2023 Rad`sApparel</p>
         </footer>
       </div>
     </>
