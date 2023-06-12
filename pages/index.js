@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 // import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import SearchIcon from '@heroicons/react/24/outline/MagnifyingGlassIcon';
-// import Carousel from '../components/Carousel';
+import Carousel from '../components/Carousel';
 import { shuffle } from 'lodash';
 import { useEffect } from 'react';
 
