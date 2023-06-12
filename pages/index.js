@@ -135,14 +135,17 @@ export default function Home({ products, featuredProducts }) {
 
       {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4"> */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => (
-          <ProductItem
-            key={product.slug}
-            product={product}
-            addToCartHandler={addToCartHandler}
-          ></ProductItem>
-        ))}
-      </div>
+  {products
+    .filter((product) => !product.isFeatured) // Exclude featured products
+    .map((product) => (
+      <ProductItem
+        key={product.slug}
+        product={product}
+        addToCartHandler={addToCartHandler}
+      ></ProductItem>
+    ))}
+</div>
+
     </Layout>
   );
 }
