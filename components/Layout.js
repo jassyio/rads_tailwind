@@ -41,7 +41,7 @@ export default function Layout({ title, children }) {
     <>
       <Head>
         <title>{title ? title + '- RA' : 'RADS APPAREL'}</title>
-        <meta name="description" content="online spares shop" />
+        <meta name="description" content="online gym apparels shop" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ToastContainer position="bottom-center" limit={1} />
