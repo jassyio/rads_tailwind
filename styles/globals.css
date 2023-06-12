@@ -110,3 +110,8 @@ textarea {
     visibility: visible;
   }
 }
+.page-name {
+  font-size: 2.5rem;
+  font-family:'Franklin Gothic Medium';
+  font-weight: bold;
+}

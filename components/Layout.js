@@ -48,9 +48,10 @@ export default function Layout({ title, children }) {
       <div className="flex min-h-full flex-col justify-between">
         <header className=" bg-white sticky top-0 z-50">
           <nav className="flex h-12 justify-between items-center ">
-            <Link id="link" className="text-xl font-bold ml-4" href="/">
-              Rad`s Apparel`
-            </Link>
+          <Link id="link" className="text-xl font-bold ml-4 page-name" href="/">
+  Rad's Apparel
+</Link>
+
 
             <form
               onSubmit={submitHandler}
