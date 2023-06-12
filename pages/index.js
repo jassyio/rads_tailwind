@@ -15,7 +15,7 @@ import Carousel from '../components/Carousel';
 import { shuffle } from 'lodash';
 import { useEffect } from 'react';
 
-export default function Home({ products, featuredProducts }) {
+export default function Home({ products }) {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const router = useRouter();
