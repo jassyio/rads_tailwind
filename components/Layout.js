@@ -40,7 +40,7 @@ export default function Layout({ title, children }) {
   return (
     <>
       <Head>
-        <title>{title ? title + '- MG' : 'RADSAPPAREL'}</title>
+        <title>{title ? title + '- RA' : 'RADS APPAREL'}</title>
         <meta name="description" content="online spares shop" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -127,6 +127,11 @@ export default function Layout({ title, children }) {
               ) : (
                 <Link id="link" className="p-2" href="/login">
                   Login
+                </Link>
+              )}
+              {!session?.user && (
+                <Link id='link'  href="/register">
+            Register
                 </Link>
               )}
             </div>

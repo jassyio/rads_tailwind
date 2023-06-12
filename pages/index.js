@@ -12,11 +12,30 @@ import { useRouter } from 'next/router';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import SearchIcon from '@heroicons/react/24/outline/MagnifyingGlassIcon';
 import Carousel from '../components/Carousel';
+import { shuffle } from 'lodash';
+import { useEffect } from 'react';
 
 export default function Home({ products, featuredProducts }) {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const router = useRouter();
+  const shuffledProducts = shuffle(products);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % shuffledProducts.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [shuffledProducts.length]);
+
+  const imagesToShow = [
+    shuffledProducts[currentImageIndex],
+    shuffledProducts[(currentImageIndex + 1) % shuffledProducts.length],
+    shuffledProducts[(currentImageIndex + 2) % shuffledProducts.length],
+    shuffledProducts[(currentImageIndex + 3) % shuffledProducts.length],
+  ];
 
   const addToCartHandler = async (product) => {
     const existItem = cart.cartItems.find((item) => item.slug === product.slug);
@@ -42,8 +61,21 @@ export default function Home({ products, featuredProducts }) {
 
   return (
     <Layout>
-      <div className=" h-32 md:h-42 lg:h-52 overflow-hidden">
-        <Carousel products={featuredProducts}></Carousel>
+      Featured products
+      {/* <div className=" h-32 md:h-42 lg:h-52 overflow-hidden"> */}
+      <div className="flex justify-center mb-8">
+        {/* <Carousel products={featuredProducts}></Carousel> */}
+        <div className="carousel-container overflow-hidden">
+          {imagesToShow.map((product, index) => (
+            <div key={index} className="carousel-item flex-shrink-0 active">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="carousel-image w-full rounded-sm object-cover"
+              />
+            </div>
+          ))}
+        </div>
       </div>
       {/* <h1 className="h2 my-4 text-2xl">Latest Products</h1> */}
       {/* <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 overflow-x-auto"> */}
@@ -135,17 +167,16 @@ export default function Home({ products, featuredProducts }) {
 
       {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4"> */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-  {products
-    .filter((product) => !product.isFeatured) // Exclude featured products
-    .map((product) => (
-      <ProductItem
-        key={product.slug}
-        product={product}
-        addToCartHandler={addToCartHandler}
-      ></ProductItem>
-    ))}
-</div>
-
+        {products
+        .filter((product) => !product.isFeatured)
+        .map((product) => (
+          <ProductItem
+            key={product.slug}
+            product={product}
+            addToCartHandler={addToCartHandler}
+          ></ProductItem>
+        ))}
+      </div>
     </Layout>
   );
 }
