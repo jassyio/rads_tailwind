@@ -1,55 +1,50 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-const-assign */
+// import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { signIn, useSession } from 'next-auth/react';
+
 import { getError } from '../utils/error';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
-export default function LoginScreen() {
-  const { data: session } = useSession();
+export default function ForgotPasswordScreen() {
   const router = useRouter();
   const { redirect } = router.query;
-
-  useEffect(() => {
-    if (session?.user) {
-      console.log('user found');
-      router.push(redirect || '/');
-    }
-  }, [router, session, redirect]);
 
   const {
     handleSubmit,
     register,
+
     formState: { errors },
   } = useForm();
 
-  const submitHandler = async ({ email, password }) => {
+  const submitHandler = async ({ email }) => {
     try {
-      const result = await signIn('credentials', {
-        redirect: false,
+      const result = await axios.post('/api/auth/sendPasswordResetCode', {
         email,
-        password,
       });
+      console.log(result.status);
+
+      toast.success(' password link sent to you email successfully');
+
       if (result.error) {
         toast.error(result.error);
-      } else {
-        router.push(redirect || '/');
       }
     } catch (err) {
       toast.error(getError(err));
     }
   };
   return (
-    <Layout title="Login">
+    <Layout title="Forgot Password">
       <form
         className="max-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Login</h1>
+        <h1 className="mb-4 text-xl">Forgot Password</h1>
         <div className="mb-4">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email Address</label>
           <input
             type="email"
             {...register('email', {
@@ -67,38 +62,17 @@ export default function LoginScreen() {
             <div className="text-red-500">{errors.email.message}</div>
           )}
         </div>
+
         <div className="mb-4">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            {...register('password', {
-              required: 'Please enter password',
-              minLength: {
-                value: 6,
-                message: 'password must be more than 5 chars',
-              },
-            })}
-            className="w-full"
-            id="password"
-            autoFocus
-          ></input>
-          {errors.password && (
-            <div className="text-red-500">{errors.password.message}</div>
-          )}
+          <button className="primary-button">Send Reset Code</button>
         </div>
-        <div className="mb-4">
-          <button className="primary-button">Login</button>
-        </div>
+        <div className="mb-4"></div>
         <div className="mb-4">
           Don&apos;t have an account?{' '}
           {/* //&apos is apostrophe(') and &nbsp is admin-admin2 Gv9-5kajZ952@Bn
           space */}
           <Link id="link" href={`/register?redirect=${redirect || '/'}`}>
             Register
-          </Link>
-          &nbsp; Forgot Password?{' '}
-          <Link id="link" href={`/forgotPassword?redirect=${redirect || '/'}`}>
-            Reset Password
           </Link>
         </div>
       </form>

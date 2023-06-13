@@ -8,14 +8,13 @@ import { getError } from '../utils/error';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
-export default function LoginScreen() {
+export default function ResetPasswordScreen() {
   const { data: session } = useSession();
   const router = useRouter();
   const { redirect } = router.query;
 
   useEffect(() => {
     if (session?.user) {
-      console.log('user found');
       router.push(redirect || '/');
     }
   }, [router, session, redirect]);
@@ -27,12 +26,12 @@ export default function LoginScreen() {
     formState: { errors },
   } = useForm();
 
-  const submitHandler = async ({ name, email, password }) => {
+  const submitHandler = async ({ email, password, code }) => {
     try {
-      await axios.post('/api/auth/signup', {
-        name,
+      await axios.put('/api/auth/resetPassword', {
         email,
         password,
+        code,
       });
       const result = await signIn('credentials', {
         redirect: false,
@@ -55,22 +54,7 @@ export default function LoginScreen() {
         className="max-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Create Account</h1>
-        <div className="mb-4">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            className="w-full"
-            id="name"
-            autoFocus
-            {...register('name', {
-              required: 'Please enter name',
-            })}
-          />
-          {errors.name && (
-            <div className="text-red-500">{errors.name.message}</div>
-          )}
-        </div>
+        <h1 className="mb-4 text-xl">Reset Password</h1>
 
         <div className="mb-4">
           <label htmlFor="email">Email</label>
@@ -133,18 +117,38 @@ export default function LoginScreen() {
           )}
           {errors.confirmPassword &&
             errors.confirmPassword.type === 'validate' && (
-              <div className="text-red-500 ">Password do not match</div>
+              <div className="text-red-500">Password do not match</div>
             )}
         </div>
         <div className="mb-4">
-          <button className="primary-button">Register</button>
+          <label htmlFor="code">Verification Code</label>
+          <input
+            type="text"
+            className="w-full"
+            id="code"
+            autoFocus
+            {...register('code', {
+              required: 'Please enter verification code',
+              minLength: {
+                value: 5,
+                message: 'verification code must be 5 digits',
+              },
+            })}
+          />
+          {errors.name && (
+            <div className="text-red-500">{errors.code.message}</div>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <button className="primary-button">Submit</button>
         </div>
         <div className="mb-4">
-          Have an account? &nbsp;{' '}
+          Don&apos;t have an account?{' '}
           {/* //&apos is apostrophe(') and &nbsp is admin-admin2 Gv9-5kajZ952@Bn
           space */}
-          <Link id="link" href={`/login?redirect=${redirect || '/'}`}>
-            Login
+          <Link id="link" href={`/register?redirect=${redirect || '/'}`}>
+            Register
           </Link>
         </div>
       </form>
