@@ -49,7 +49,7 @@ export default function Layout({ title, children }) {
         <header className=" bg-white sticky top-0 z-50">
           <nav className="flex h-12 justify-between items-center ">
           <Link id="link" className="text-xl font-bold ml-4 page-name" href="/">
-  Rad's Apparel
+  Rad&apos;s Apparel
 </Link>
 
 
