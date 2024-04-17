@@ -16,12 +16,12 @@ export default function Carousel({ products }) {
     return () => clearInterval(interval);
   }, [shuffledProducts]);
 
-  const imagesToShow = [
-    shuffledProducts[currentImageIndex],
-    shuffledProducts[(currentImageIndex + 1) % shuffledProducts.length],
-    shuffledProducts[(currentImageIndex + 2) % shuffledProducts.length],
-    shuffledProducts[(currentImageIndex + 3) % shuffledProducts.length],
-  ];
+  // const imagesToShow = [
+  //   shuffledProducts[currentImageIndex],
+  //   shuffledProducts[(currentImageIndex + 1) % shuffledProducts.length],
+  //   shuffledProducts[(currentImageIndex + 2) % shuffledProducts.length],
+  //   shuffledProducts[(currentImageIndex + 3) % shuffledProducts.length],
+  // ];
 
   useEffect(() => {
     const timer = setInterval(() => {

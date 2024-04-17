@@ -99,7 +99,12 @@ textarea {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) { /* Tablet */
+@media (max-width: 468px) and (min-width: 369px) { /* Tablet */
+  .carousel-item {
+    flex: 0 0 100%; /* Each item takes 50% width */
+  }
+}
+@media (max-width: 768px) and (min-width: 469px)  { /* Tablet */
   .carousel-item {
     flex: 0 0 50%; /* Each item takes 50% width */
   }
